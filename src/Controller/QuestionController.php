@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Sentry\State\HubInterface;
 use Psr\Log\LoggerInterface;
 use App\Service\MarkdownHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,6 +39,10 @@ class QuestionController extends AbstractController
      */
     public function show($slug, MarkdownHelper $markdownHelper)
     {
+        if ($this->isDebug) {
+            $this->logger->info('We are in debug mode!');
+        }
+
         $questionText = 'I\'ve been turned into a cat, any *thoughts* on how to turn back? While I\'m **adorable**, I don\'t really care for cat food.';
         $parsedQuestionText = $markdownHelper->parse($questionText);
 
